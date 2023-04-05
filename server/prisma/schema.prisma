@@ -11,16 +11,16 @@ datasource db {
 }
 
 model User {
-  id           String      @id @default(uuid())
-  username     String      @unique
-  email        String      @unique
-  password     String
+  id               String   @id @default(uuid())
+  username         String   @unique
+  email            String   @unique
+  password         String
   favoriteCocktail Recipe[] @relation("userFavorites")
-  createdAt    DateTime     @default(now())
+  createdAt        DateTime @default(now())
 }
 
 model Recipe {
-  id          Int      @id @default(autoincrement())
+  id          String      @id @default(uuid())
   name        String
   liquors     String[]
   ingredients String[]

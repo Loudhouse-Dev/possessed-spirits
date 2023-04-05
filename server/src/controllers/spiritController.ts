@@ -1,19 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import asyncHandler from 'express-async-handler';
+import prisma from '../db';
+import { Request, Response } from 'express';
 
 
-interface IBaseError {
-  message: string;
-  status: number;
+export const getSpirits = async(_req: Request, res: Response) => {
+  const cocktails = await prisma.recipe.findMany();
+  res.json({data: cocktails})
 }
-
-const baseError: IBaseError = {
-  message: 'An error occurred in in the controller function',
-  status: 400,
-};
-
-export const getSpirits = async(req: Request, res: Response ) => {
-  
-}
-
-export default spiritController;

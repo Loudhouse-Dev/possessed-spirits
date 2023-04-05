@@ -1,10 +1,16 @@
 import express from 'express';
-import { Request, Response } from 'express';
 import router from './routes/cocktailRoutes';
+import morgan from 'morgan';
+
+
 
 const app = express();
 
-app.get('/', (_req: Request, res: Response) => {
+app.use(morgan('dev'));
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+app.get('/', (_req, res) => {
   res.send('Hello World!');
 });
 

@@ -10,12 +10,15 @@
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/morgan": "^1.9.4",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
     "prisma": "^4.12.0",
     "ts-node": "^10.9.1"
   },

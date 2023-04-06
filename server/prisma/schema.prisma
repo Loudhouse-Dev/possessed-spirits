@@ -23,7 +23,7 @@ model Recipe {
   id          String      @id @default(uuid())
   name        String
   liquors     String[]
-  ingredients String[]
+  ingredients Json
   garnish     String?
   directions  String[]
   users       User[]   @relation("userFavorites")

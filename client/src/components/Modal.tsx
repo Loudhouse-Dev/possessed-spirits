@@ -1,26 +1,30 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+
+const modalRoot = document.querySelector('#modal-root') as HTMLElement;
 
 interface ModalProps {
   children: ReactNode;
 }
 
 function Modal({ children }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-  if (!modalRef.current) {
-    modalRef.current = document.createElement('div');
-  }
+  const elRef = useRef<HTMLDivElement | null>(null);
+
+  if (!elRef.current) elRef.current = document.createElement('div');
 
   useEffect(() => {
-    const modalRoot = document.getElementById('modal');
-    modalRoot?.appendChild(modalRef.current);
+    const el = elRef.current!;
+    modalRoot.appendChild(el);
 
-    return () => modalRoot?.removeChild(modalRef.current);
+    return () => {
+      modalRoot.removeChild(el);
+    };
   }, []);
 
   return createPortal(
     <div className="modal-active">{children}</div>,
-    modalRef.current!
+    elRef.current
   );
 }
 

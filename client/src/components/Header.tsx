@@ -1,9 +1,7 @@
-import React from 'react';
-import { useState, useContext } from 'react';
-import CocktailContext from '../context/CocktailContext';
+import React, { useState } from 'react';
 
 function Header() {
-  const { select, setSelected } = useState('all');
+  const [selected, setSelected] = useState('all');
 
   const categories = [
     'whiskey',
@@ -15,16 +13,16 @@ function Header() {
     'vermouth',
   ];
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelected(e.currentTarget.value);
-    console.log(filters);
+    //console.log(selected);
   };
 
   return (
     <header className="site-header pos-fixed vh-100 bg-light">
       <div className="container">
         <div className="logo">
-          <img src="./src/assets/scratch-logo.png" alt="" />
+          <img src="./src/assets/scratch-logo.png" alt="Site-logo" />
         </div>
         <h2> Pick Your Poison: </h2>
         <ul className="filters">
@@ -33,20 +31,30 @@ function Header() {
               <input
                 className="filter-btn"
                 onChange={handleChange}
-                checked={setSelected === cat}
+                checked={selected === cat}
                 type="radio"
                 value={cat}
               />
-              <label htmlFor={cat}>{cat.toLocaleUpperCase()}</label>
+              <label htmlFor={cat}>{cat.toUpperCase()}</label>
             </li>
           ))}
         </ul>
 
         <div className="button-container">
-          <button className="primary-button" id="filter-submit" type="submit">
+          <button
+            aria-roledescription="filter"
+            className="primary-button"
+            id="filter-submit"
+            type="submit"
+          >
             Submit
           </button>
-          <button className="primary-button" id="filter-clear" type="submit">
+          <button
+            aria-roledescription="clear-filters"
+            className="primary-button"
+            id="filter-clear"
+            type="submit"
+          >
             Clear
           </button>
         </div>

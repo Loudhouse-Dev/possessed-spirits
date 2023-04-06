@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 
-interface Cocktail {
+export interface Cocktail {
   name: string;
   liquors: string[];
   ingredients: string[][];

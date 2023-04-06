@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { IoArrowForwardOutline } from 'react-icons/io5';
 import Modal from './Modal';
+import { Cocktail } from '../context/CocktailContext';
 
 interface Props {
-  cocktail: {
-    name: string;
-    directions: string[];
-    ingredients: string[];
-    liquor: string[];
-    garnish: string;
-    id: string;
-  };
+  cocktail: Cocktail;
 }
 
 const Card: React.FC<Props> = ({ cocktail }) => {
-  const { name, directions, ingredients, liquor, garnish } = cocktail;
+  const { name, directions, ingredients, liquors, garnish } = cocktail;
   const [showModal, setShowModal] = useState(false);
   const ingredientList: React.ReactNode[] = [];
   const directionsList: React.ReactNode[] = [];
@@ -27,7 +21,7 @@ const Card: React.FC<Props> = ({ cocktail }) => {
     return snakeName;
   };
 
-  ingredients.forEach((ingredient: string, i: number) =>
+  ingredients.forEach((ingredient: string[], i: number) =>
     ingredientList.push(
       <li key={i} className="ingredient">
         {ingredient}
@@ -43,7 +37,7 @@ const Card: React.FC<Props> = ({ cocktail }) => {
     )
   );
 
-  liquor.forEach((liquor: string, i: number) =>
+  liquors.forEach((liquor: string, i: number) =>
     liquorList.push(
       <span key={i} className="liquor">
         {liquor.toUpperCase() + ' '}
@@ -51,7 +45,7 @@ const Card: React.FC<Props> = ({ cocktail }) => {
     )
   );
 
-  liquor.forEach((liquor: string) => {
+  liquors.forEach((liquor: string) => {
     if (liquor !== ' | ') {
       liquorData.push(liquor.toLocaleLowerCase());
     }
@@ -68,7 +62,7 @@ const Card: React.FC<Props> = ({ cocktail }) => {
         </button>
       </div>
       {showModal ? (
-        <Modal className="modal-active">
+        <Modal>
           <div className="card-box">
             <button className="hideModal" onClick={() => setShowModal(false)}>
               X

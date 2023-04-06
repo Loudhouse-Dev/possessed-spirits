@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import Card from './Card';
-import Filters from './Filters';
+import Filters from './Filter';
 import { CocktailContext } from '../context/CocktailContext';
+import { Cocktail } from '../context/CocktailContext';
 
 function CardList() {
   const { filteredCocktails, selectedFilter, setSelectedFilter } =
@@ -19,7 +20,7 @@ function CardList() {
         </div>
       </header>
       <section className="card-list display-flex flex-dir-row flex-wrap flex-justify-evenly">
-        {filteredCocktails.map((cocktail, i) => (
+        {filteredCocktails.map((cocktail: Cocktail, i) => (
           <Card key={i} cocktail={cocktail} />
         ))}
       </section>

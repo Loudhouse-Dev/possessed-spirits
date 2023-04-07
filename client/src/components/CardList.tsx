@@ -2,6 +2,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { gsap } from 'gsap';
+import { Flip } from 'gsap/Flip';
+gsap.registerPlugin(Flip);
 import Card from './Card';
 import fetchCocktails from '../lib/fetchCocktails';
 import Filters from './Filters';
@@ -36,7 +39,7 @@ function CardList() {
       const newFilteredCocktails = cocktails.filter((cocktail) => {
         return cocktail['liquors'].includes(selectedFilter);
       });
-      setFilteredCocktails(newFilteredCocktails);
+      setFilteredCocktails([...newFilteredCocktails]);
     } else {
       setFilteredCocktails([...cocktails]);
     }

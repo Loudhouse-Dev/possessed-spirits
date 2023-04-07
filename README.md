@@ -1,13 +1,13 @@
-React with TypeScript and Vite Application
+React with TypeScript and Vite Application <br>g
 
 This is a simple, single page application where a user can find cocktail recipes by liquor type.
 
 Built with:
 
-TypeScript
-React
-Vite
-Node.js
-Express.js
-Prisma
-PostgreSQL
+TypeScript <br>
+React <br>
+Vite <br>
+Node.js <br>
+Express.js <br>
+Prisma <br>
+PostgreSQL <br>

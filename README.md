@@ -1,4 +1,4 @@
-#H2 color: lightblue;">React with TypeScript and Vite Application  
+## Alt-H2 React with TypeScript and Vite Application  
 
 This is a simple, single page application where a user can find cocktail recipes by liquor type.
 

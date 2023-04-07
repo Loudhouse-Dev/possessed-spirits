@@ -1,4 +1,4 @@
-React with TypeScript and Vite Application <br>g
+<h2 style="color: lighblue;">React with TypeScript and Vite Application </h2> <br>
 
 This is a simple, single page application where a user can find cocktail recipes by liquor type.
 

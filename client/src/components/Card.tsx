@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { IoArrowForwardOutline } from 'react-icons/io5';
 import Modal from './Modal';
-import { Cocktail } from '../context/CocktailContext';
+import type { Cocktail } from './CardList';
 
-interface Props {
+type Props = {
   cocktail: Cocktail;
-}
+};
 
 const Card: React.FC<Props> = ({ cocktail }) => {
   const { name, directions, ingredients, liquors, garnish } = cocktail;

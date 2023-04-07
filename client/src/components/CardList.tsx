@@ -1,8 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import Card from './Card';
+import fetchCocktails from '../lib/fetchCocktails';
 import Filters from './Filters';
-// import { CocktailContext } from '../context/CocktailContext';
-// import { Cocktail } from '../context/CocktailContext';
+import MobileFilters from './MobileFilters';
+import MobileHeader from './MobileHeader';
 
 export type Cocktail = {
   id: string;
@@ -15,28 +19,48 @@ export type Cocktail = {
 
 function CardList() {
   const [cocktails, setCocktails] = useState<Cocktail[]>([]);
-  // const { filteredCocktails, selectedFilter, setSelectedFilter, cocktails } =
-  //   useContext(CocktailContext);
+  const [filteredCocktails, setFilteredCocktails] = useState<Cocktail[]>([]);
+  const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  const id = null;
+  const results = useQuery(['cocktails', id], fetchCocktails);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/cocktails')
-      .then((response) => response.json())
-      .then((data) => setCocktails(data));
-  }, []);
+    if (results.data) {
+      setCocktails(results.data);
+      setFilteredCocktails(results.data);
+    }
+  }, [results.data]);
+
+  useEffect(() => {
+    if (selectedFilter !== 'all') {
+      const newFilteredCocktails = cocktails.filter((cocktail) => {
+        return cocktail['liquors'].includes(selectedFilter);
+      });
+      setFilteredCocktails(newFilteredCocktails);
+    } else {
+      setFilteredCocktails([...cocktails]);
+    }
+  }, [cocktails, selectedFilter]);
+
+  if (results.isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <header className="site-header pos-fixed vh-100 bg-light">
+      <MobileHeader />
+      <MobileFilters select={setSelectedFilter} selected={selectedFilter} />
+      <header className="site-header pos-fixed vh-100 bg-light hide-mobile">
         <div className="container">
           <div className="logo">
             <img src="./src/assets/scratch-logo.png" alt="Site Logo" />
           </div>
           <h2> Pick Your Poison: </h2>
-          {/* {//<Filters select={setSelectedFilter} selected={selectedFilter} /> } */}
+          <Filters select={setSelectedFilter} selected={selectedFilter} />
         </div>
       </header>
       <section className="card-list display-flex flex-dir-row flex-wrap flex-justify-evenly">
-        {cocktails.map((cocktail: Cocktail, i) => (
+        {filteredCocktails?.map((cocktail: Cocktail, i) => (
           <Card key={i} cocktail={cocktail} />
         ))}
       </section>

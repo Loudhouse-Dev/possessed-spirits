@@ -1,15 +1,24 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './App.css';
 import CardList from './components/CardList';
-import { CocktailProvider } from './context/CocktailContext';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    },
+  },
+});
 
 function App() {
   return (
-    <CocktailProvider>
+    <QueryClientProvider client={queryClient}>
       <div className="App">
         <CardList />
       </div>
-    </CocktailProvider>
+    </QueryClientProvider>
   );
 }
 

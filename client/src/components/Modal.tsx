@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-const modalRoot = document.querySelector('#modal-root') as HTMLElement;
+const modalRoot = document.querySelector('#modal') as HTMLElement;
 
 interface ModalProps {
   children: ReactNode;

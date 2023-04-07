@@ -1,29 +1,32 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
-export interface Cocktail {
+export type Cocktail = {
+  id: string;
   name: string;
   liquors: string[];
   ingredients: string[][];
   garnish?: string;
   directions: string[];
-}
+};
 
 interface CocktailContextProps {
+  id: string;
   cocktails: Cocktail[];
   filteredCocktails: Cocktail[];
   selectedFilter: string;
   setSelectedFilter: React.Dispatch<React.SetStateAction<string>>;
-  filterCocktails: () => void;
+  // filterCocktails: () => void;
 }
 
 export const CocktailContext = createContext<CocktailContextProps>({
+  id: '',
   cocktails: [],
   filteredCocktails: [],
   selectedFilter: 'all',
   setSelectedFilter: () => {},
-  filterCocktails: () => {},
+  // filterCocktails: () => {},
 });
 
 interface CocktailProviderProps {
@@ -32,41 +35,49 @@ interface CocktailProviderProps {
 
 export const CocktailProvider = ({ children }: CocktailProviderProps) => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([]);
-  const [filteredCocktails, setFilteredCocktails] = useState<Cocktail[]>([]);
+  const [filteredCocktails, setFilteredCocktails] =
+    useState<Cocktail[]>(cocktails);
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
   useEffect(() => {
-    async function getCocktails() {
-      const response = await axios.get<Cocktail[]>('http://localhost:8080/');
-      setCocktails(response.data);
-    }
-
-    getCocktails();
+    fetch('http://localhost:3001/api/cocktails')
+      .then((response) => response.json())
+      .then((data) => setCocktails(data));
   }, []);
 
-  useEffect(() => {
-    filterCocktails();
-  }, [cocktails, selectedFilter]);
+  console.log(cocktails);
 
-  const filterCocktails = () => {
-    if (selectedFilter !== 'all') {
-      const newFilteredCocktails = cocktails.filter((cocktail) => {
-        return cocktail['liquors'].includes(selectedFilter);
-      });
-      setFilteredCocktails(newFilteredCocktails);
-    } else {
-      setFilteredCocktails(cocktails);
-    }
-  };
+  // useEffect(() => {
+  //   if (selectedFilter !== 'all') {
+  //     const newFilteredCocktails = cocktails.filter((cocktail) => {
+  //       return cocktail['liquors'].includes(selectedFilter);
+  //     });
+  //     setFilteredCocktails(newFilteredCocktails || []);
+  //   } else {
+  //     setFilteredCocktails(cocktails);
+  //   }
+  // }, [cocktails, selectedFilter]);
+
+  // const filterCocktails = () => {
+  //   if (selectedFilter !== 'all') {
+  //     const newFilteredCocktails = cocktails.filter((cocktail) => {
+  //       return cocktail['liquors'].includes(selectedFilter);
+  //     });
+  //     setFilteredCocktails(newFilteredCocktails || []);
+  //   } else {
+  //     setFilteredCocktails(cocktails);
+  //   }
+  // };
 
   return (
     <CocktailContext.Provider
       value={{
+        id: '1',
         cocktails,
         filteredCocktails,
         selectedFilter,
         setSelectedFilter,
-        filterCocktails,
+        // filterCocktails,
       }}
     >
       {children}

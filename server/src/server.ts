@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import router from './routes/cocktailRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
-import { protect } from './modules/auth'
+//import { protect } from './modules/auth'
 import { createNewUser, signin } from './controllers/userController'
 
 const app = express();
@@ -17,7 +17,7 @@ app.get('/', (_req, res) => {
   res.send('Hello World!');
 });
 
-app.use('/api', protect, router);
+app.use('/api', router);
 
 app.post('/user', createNewUser)
 app.post('/signin', signin)

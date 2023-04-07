@@ -1,14 +1,16 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './App.css';
+import CardList from './components/CardList';
+import { CocktailProvider } from './context/CocktailContext';
 
 function App() {
-
-
   return (
-    <div className="App">
-
-    </div>
-  )
+    <CocktailProvider>
+      <div className="App">
+        <CardList />
+      </div>
+    </CocktailProvider>
+  );
 }
 
-export default App
+export default App;

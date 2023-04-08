@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IoArrowForwardOutline } from 'react-icons/io5';
+import { motion } from 'framer-motion';
 import Modal from './Modal';
 import type { Cocktail } from './CardList';
 
@@ -52,7 +53,14 @@ const Card: React.FC<Props> = ({ cocktail }) => {
   });
 
   return (
-    <div className="card-box">
+    <motion.div
+      className="card-box"
+      layout
+      animate={{ scale: 1, opacity: 1 }}
+      initial={{ scale: 0, opacity: 0 }}
+      exit={{ scale: 0, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <img src={`../src/assets/${getImage()}.jpg`} alt={name} />
       <div className="card-info" data-liquor={liquorData}>
         <h2 className="cocktail-name">{name}</h2>
@@ -83,7 +91,7 @@ const Card: React.FC<Props> = ({ cocktail }) => {
           </div>
         </Modal>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 

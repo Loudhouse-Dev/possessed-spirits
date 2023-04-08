@@ -2,9 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { gsap } from 'gsap';
-import { Flip } from 'gsap/Flip';
-gsap.registerPlugin(Flip);
+import { AnimatePresence, motion } from 'framer-motion';
 import Card from './Card';
 import fetchCocktails from '../lib/fetchCocktails';
 import Filters from './Filters';
@@ -62,11 +60,16 @@ function CardList() {
           <Filters select={setSelectedFilter} selected={selectedFilter} />
         </div>
       </header>
-      <section className="card-list display-flex flex-dir-row flex-wrap flex-justify-evenly">
-        {filteredCocktails?.map((cocktail: Cocktail, i) => (
-          <Card key={i} cocktail={cocktail} />
-        ))}
-      </section>
+      <motion.div
+        layout
+        className="card-list display-flex flex-dir-row flex-wrap flex-justify-evenly"
+      >
+        <AnimatePresence initial={false}>
+          {filteredCocktails?.map((cocktail: Cocktail, i) => (
+            <Card key={i} cocktail={cocktail} />
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </>
   );
 }

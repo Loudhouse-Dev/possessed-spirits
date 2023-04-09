@@ -6,8 +6,9 @@ Built with:
 
 - TypeScript <br>
 - React <br>
-- Vite <br>
+- React Query <br>
 - Node.js <br>
 - Express.js <br>
 - Prisma <br>
 - PostgreSQL <br>
+- Vite <br>
